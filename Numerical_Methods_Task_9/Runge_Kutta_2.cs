@@ -11,6 +11,7 @@ namespace Numerical_Methods_Task_9
         private FunkDelegate f; // функция
         private double h; // шаг
         private double eps; // контроль шага
+        private double epsBorder; // точность выхода на границу
         private Point currentPoint; // текущая точка 
 
         private int maxSteps;
@@ -19,12 +20,13 @@ namespace Numerical_Methods_Task_9
         private int countPlusH = 0;
         private int countMinusH = 0;
         private int steps = 0;
-        public void Init(double _x0, double _u0, double _h, double _eps, int _maxSteps, FunkDelegate _f)
+        public void Init(double _x0, double _u0, double _h, double _eps, double _epsBorder,int _maxSteps, FunkDelegate _f)
         {
             currentPoint = new Point(_x0, _u0);
             h = _h;
             eps = _eps;
             f = _f;
+            epsBorder = _epsBorder;
             maxSteps = _maxSteps;
             listOfPoints.Add(currentPoint);
             listIfMetodInfo.Add(new MetodInfo(steps,0,_x0,_u0,0,0,0,0,0,0,0));
@@ -109,11 +111,11 @@ namespace Numerical_Methods_Task_9
             {
                 return true;
             }
-            if (currentPoint.U + (h/2.0)*f(currentPoint.X, currentPoint.U) < 0.01)
+            if (currentPoint.U + (h/2.0)*f(currentPoint.X, currentPoint.U) < epsBorder) // 0,001
             {
                 return true;
             }
-            if (currentPoint.U < 0.01) // контроль границы 
+            if (currentPoint.U < epsBorder) // контроль границы 
             {
                 return true;
             }
@@ -127,6 +129,10 @@ namespace Numerical_Methods_Task_9
         public List<Point> GetPoints()
         {
             return listOfPoints;
-        } 
+        }
+        public double GetResultTime()
+        {
+            return currentPoint.X;
+        }
     }
 }
