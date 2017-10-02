@@ -29,7 +29,7 @@ namespace Numerical_Methods_Task_9
             epsBorder = _epsBorder;
             maxSteps = _maxSteps;
             listOfPoints.Add(currentPoint);
-            listIfMetodInfo.Add(new MetodInfo(steps,0,_x0,_u0,0,0,0,0,0,0,0));
+            listIfMetodInfo.Add(new MetodInfo(steps,0,_x0,_u0,0,0,0,0,0,0,0,0));
             steps++;
         } 
 
@@ -44,11 +44,11 @@ namespace Numerical_Methods_Task_9
 
                 var s = Math.Abs(GetS(newPoint, halfPoint));
 
-                var e = Math.Abs(Math.Pow(2,2)*s);
+                var e = Math.Abs(Math.Pow(2.0,2.0)*s);
 
                 var uCorr = GetUCorr(newPoint, s);
 
-                if (s < eps/(Math.Pow(2, 2)))
+                if (s < eps/(Math.Pow(2.0, 2.0)))
                 {
                     currentPoint = newPoint;
                     h = h*2;
@@ -70,18 +70,18 @@ namespace Numerical_Methods_Task_9
                 }
                 listIfMetodInfo.Add(
                     new MetodInfo(steps, oldH, currentPoint.X, currentPoint.U, halfPoint.U, 
-                        currentPoint.U - halfPoint.U, s, uCorr, currentPoint.U, countMinusH, countPlusH));
+                        currentPoint.U - halfPoint.U, s, e, uCorr, currentPoint.U, countMinusH, countPlusH));
                 steps++;
             }
         }
 
         private double GetUCorr(Point nextPoint, double s)
         {
-            return nextPoint.U + Math.Pow(2, 2)*s;
+            return nextPoint.U + Math.Pow(2.0, 2.0)*s;
         }
         private double GetS(Point next_1, Point next_2)
         {
-            return (next_2.U - next_1.U)/(2*2 - 1);
+            return (next_2.U - next_1.U)/(2.0*2.0 - 1.0);
         }
         private Point GetHalfPoint(Point currentPoint, double h)
         {
