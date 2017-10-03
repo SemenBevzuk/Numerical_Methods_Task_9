@@ -16,12 +16,7 @@ namespace Numerical_Methods_Task_9
 
         private readonly List<Point> listOfPoints = new List<Point>(); // список точек для графика
 
-        public TrueSolution(double _alfa, double _sigma, double _u)
-        {
-            SetFunction(_alfa, _sigma, _u);
-        }
-
-        public void SetFunction(double _alfa, double _sigma, double _u0)
+        public TrueSolution(double _alfa, double _sigma, double _u0)
         {
             sigma = _sigma;
             alfa = _alfa;

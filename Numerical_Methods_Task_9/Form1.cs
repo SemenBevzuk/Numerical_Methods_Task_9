@@ -32,10 +32,12 @@ namespace Numerical_Methods_Task_9
                 Title = "Время"
             });
 
+            cartesianChart1.Zoom = ZoomingOptions.X;
+
             dataGridView_MetodInfo.Rows.Clear();
             dataGridView_MetodInfo.Columns.Clear();
             dataGridView_MetodInfo.RowCount = 1;
-            dataGridView_MetodInfo.ColumnCount = 12;
+            dataGridView_MetodInfo.ColumnCount = 14;
             dataGridView_MetodInfo.Columns[0].HeaderText = "i";
             dataGridView_MetodInfo.Columns[1].HeaderText = "h_(i-1)";
             dataGridView_MetodInfo.Columns[2].HeaderText = "x_i";
@@ -46,8 +48,10 @@ namespace Numerical_Methods_Task_9
             dataGridView_MetodInfo.Columns[7].HeaderText = "e";
             dataGridView_MetodInfo.Columns[8].HeaderText = "v_i_уточ";
             dataGridView_MetodInfo.Columns[9].HeaderText = "v_i_итог";
-            dataGridView_MetodInfo.Columns[10].HeaderText = "Ум. шага";
-            dataGridView_MetodInfo.Columns[11].HeaderText = "Ув. шага";
+            dataGridView_MetodInfo.Columns[10].HeaderText = "u_i";
+            dataGridView_MetodInfo.Columns[11].HeaderText = "|u_i - v_i|";
+            dataGridView_MetodInfo.Columns[12].HeaderText = "Ум. шага";
+            dataGridView_MetodInfo.Columns[13].HeaderText = "Ув. шага";
             dataGridView_MetodInfo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_MetodInfo.AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
         }
@@ -59,6 +63,10 @@ namespace Numerical_Methods_Task_9
             Function Func = new Function();
             Func.SetFunction(Convert.ToDouble(textBox_alfa.Text), Convert.ToDouble(textBox_sigma.Text));
             FunkDelegate function = Func.FunctionValue;
+
+            TrueSolution trueSolution = new TrueSolution(Convert.ToDouble(textBox_alfa.Text), 
+                                                         Convert.ToDouble(textBox_sigma.Text), 
+                                                         Convert.ToDouble(textBox_u_0.Text));
 
             Runge_Kutta_2 RK_2 = new Runge_Kutta_2();
 
@@ -80,7 +88,7 @@ namespace Numerical_Methods_Task_9
             metodInfos.ForEach(_ => 
                 dataGridView_MetodInfo.Rows.Add
                 (_.Iteration, _.H, _.X, _.U, _.UHalf, _.U - _.UHalf,
-                _.S, _.e, _.UCorr, _.U, _.CountMinusH, _.CountPlusH));
+                _.S, _.e, _.UCorr, _.U, trueSolution.FunctionValue(_.X), Math.Abs(trueSolution.FunctionValue(_.X) - _.U).ToString("F8"), _.CountMinusH, _.CountPlusH));
 
             richTextBox_log.AppendText("    Время вытекания жидкости в Тесте №"+Convert.ToString(CounterOfTests)+
                 " составило "+RK_2.GetResultTime()+" секунд.\n");
