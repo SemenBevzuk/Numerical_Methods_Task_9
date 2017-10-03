@@ -32,7 +32,8 @@ namespace Numerical_Methods_Task_9
                 Title = "Время"
             });
 
-            cartesianChart1.Zoom = ZoomingOptions.X;
+            cartesianChart1.Zoom = ZoomingOptions.Xy;
+            //cartesianChart1.Zoom = ZoomingOptions.Y;
 
             dataGridView_MetodInfo.Rows.Clear();
             dataGridView_MetodInfo.Columns.Clear();
@@ -72,7 +73,7 @@ namespace Numerical_Methods_Task_9
 
             RK_2.Init(Convert.ToDouble(textBox_x_0.Text), Convert.ToDouble(textBox_u_0.Text),
                 Convert.ToDouble(textBox_h.Text), Convert.ToDouble(textBox_eps.Text),
-                Convert.ToDouble(textBox_epsBorder.Text), Convert.ToInt32(textBox_max_iter.Text), function);
+                Convert.ToInt32(textBox_max_iter.Text), function, radioButton_StepControl.Checked);
 
             RK_2.Run();
 
@@ -80,7 +81,11 @@ namespace Numerical_Methods_Task_9
                 Title = "Численное решение #"+Convert.ToString(CounterOfTests), 
                 Values = new ChartValues<ObservablePoint>(RK_2
                     .GetPoints()
-                    .Select(_ => new ObservablePoint(_.X, _.U)))
+                    .Select(_ => new ObservablePoint(_.X, _.U))),
+                //Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 200)),
+                //PointForeground = 
+                //    new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 200)),
+                PointGeometrySize = 5
             });
 
             List<MetodInfo> metodInfos = RK_2.GetMetodInfos();
@@ -113,6 +118,8 @@ namespace Numerical_Methods_Task_9
                     .GetPoints()
                     .Select(_ => new ObservablePoint(_.X, _.U))),
                 PointGeometry = DefaultGeometries.Square,
+                Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(107, 185, 69)),
+                PointGeometrySize = 5
              });
         }
     }

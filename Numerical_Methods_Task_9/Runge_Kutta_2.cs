@@ -11,23 +11,23 @@ namespace Numerical_Methods_Task_9
         private FunkDelegate f; // функция
         private double h; // шаг
         private double eps; // контроль шага
-        private double epsBorder; // точность выхода на границу
         private Point currentPoint; // текущая точка 
 
-        private int maxSteps;
+        private bool flagStepControl; // включить или отключить контроль шага
+        private int maxSteps;         // ограничение по числу шагов
         private readonly List<Point> listOfPoints = new List<Point>(); // список точек для графика
         private readonly List<MetodInfo> listIfMetodInfo = new List<MetodInfo>(); // список для таблиц
-        private int countPlusH = 0;
-        private int countMinusH = 0;
-        private int steps = 0;
-        public void Init(double _x0, double _u0, double _h, double _eps, double _epsBorder,int _maxSteps, FunkDelegate _f)
+        private int countPlusH = 0; // счётчик увеличения шага
+        private int countMinusH = 0; // счётчик уменьшения шага
+        private int steps = 0; // число шагов в данный момент
+        public void Init(double _x0, double _u0, double _h, double _eps, int _maxSteps, FunkDelegate _f, bool _flagIsHControl)
         {
             currentPoint = new Point(_x0, _u0);
             h = _h;
             eps = _eps;
             f = _f;
-            epsBorder = _epsBorder;
             maxSteps = _maxSteps;
+            flagStepControl = _flagIsHControl;
             listOfPoints.Add(currentPoint);
             listIfMetodInfo.Add(new MetodInfo(steps,0,_x0,_u0,0,0,0,0,0,0,0,0));
             steps++;
@@ -48,25 +48,33 @@ namespace Numerical_Methods_Task_9
 
                 var uCorr = GetUCorr(newPoint, s);
 
-                if (s < eps/(Math.Pow(2.0, 2.0)))
+                if (flagStepControl == true)
                 {
-                    currentPoint = newPoint;
-                    h = h*2;
-                    countPlusH++;
-                    listOfPoints.Add(newPoint);
-                }
-                else
-                {
-                    if (s > eps)
+                    if (s < eps/(Math.Pow(2.0, 2.0)))
                     {
-                        h = h/2.0;
-                        countMinusH++;
+                        currentPoint = newPoint;
+                        h = h*2;
+                        countPlusH++;
+                        listOfPoints.Add(newPoint);
                     }
                     else
                     {
-                        currentPoint = newPoint;
-                        listOfPoints.Add(newPoint);
+                        if (s > eps)
+                        {
+                            h = h/2.0;
+                            countMinusH++;
+                        }
+                        else
+                        {
+                            currentPoint = newPoint;
+                            listOfPoints.Add(newPoint);
+                        }
                     }
+                }
+                else
+                {
+                    currentPoint = newPoint;
+                    listOfPoints.Add(newPoint);
                 }
                 listIfMetodInfo.Add(
                     new MetodInfo(steps, oldH, currentPoint.X, currentPoint.U, halfPoint.U, 
@@ -91,8 +99,8 @@ namespace Numerical_Methods_Task_9
 
         private Point MakeStep(Point curPoint, double h)
         {
-            var x1 = GetNextX(currentPoint.X, h);
-            var u1 = GetNextU(currentPoint.X, currentPoint.U, h);
+            var x1 = GetNextX(curPoint.X, h);
+            var u1 = GetNextU(curPoint.X, curPoint.U, h);
             return new Point(x1, u1);
         }
         private double GetNextX(double x, double h)
@@ -102,7 +110,11 @@ namespace Numerical_Methods_Task_9
 
         private double GetNextU(double x, double u, double h)
         {
-            var a = f(x + h/2.0, u + (h/2.0)*f(x,u));
+            if (u < 0)
+            {
+                return 0;
+            }
+            double a = f(x + h/2.0, u + (h/2.0)*f(x,u));
             return u + h*a;
         }
         private bool NeedStop()
@@ -111,11 +123,7 @@ namespace Numerical_Methods_Task_9
             {
                 return true;
             }
-            if (currentPoint.U + (h/2.0)*f(currentPoint.X, currentPoint.U) < epsBorder) // 0,001
-            {
-                return true;
-            }
-            if (currentPoint.U < epsBorder) // контроль границы 
+            if (currentPoint.U < 0.01 || currentPoint.U + (h/2.0)*f(currentPoint.X, currentPoint.U) < 0.01) // контроль границы по v
             {
                 return true;
             }

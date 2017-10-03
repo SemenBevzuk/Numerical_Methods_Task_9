@@ -10,19 +10,26 @@ namespace Numerical_Methods_Task_9
     {
         private double sigma; // площадь отверстия для слива 
         private const double g = 9.81;
-        private double alfa; // угол раствора конуса 
+        private double alfa; // угол раствора конуса радианы
 
         public void SetFunction(double _alfa, double _sigma)
         {
             sigma = _sigma;
-            alfa = _alfa;
+            alfa = (_alfa * Math.PI) / 180.0;
         }
 
         public double FunctionValue(double x, double u)
         {
-            double res = -0.6*sigma*(Math.Sqrt(2*g))*
-                (1.0/Math.Pow(Math.Tan(0.5*alfa), 2))*(1.0/Math.PI)*(1.0/Math.Pow(u, 1.5));
-            return res;
+            if (u < 0)
+            {
+                return 0;
+            }
+            double c1 = -0.6 * Math.Sqrt(2 * g) * (1.0 / Math.PI);
+            double c2 = sigma / Math.Pow(Math.Tan(0.5 * alfa), 2);
+            double c3 = 1.0 / Math.Sqrt(Math.Pow(u, 3));
+            //double res = -0.6*sigma*(Math.Sqrt(2*g))*
+            //    (1.0/Math.Pow(Math.Tan(0.5*alfa), 2))*(1.0/Math.PI)*(1.0/Math.Sqrt(Math.Pow(u,3)));
+            return c1 * c2 * c3;
         }
     }
 }
