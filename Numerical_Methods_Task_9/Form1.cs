@@ -19,6 +19,7 @@ namespace Numerical_Methods_Task_9
     public partial class Form1 : Form
     {
         private int CounterOfTests = 0;
+        private List<ExperimentInfo> listExperimentInfos = new List<ExperimentInfo>(); 
         public Form1()
         {
             InitializeComponent();
@@ -55,12 +56,28 @@ namespace Numerical_Methods_Task_9
             dataGridView_MetodInfo.Columns[13].HeaderText = "Ув. шага";
             dataGridView_MetodInfo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_MetodInfo.AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
+
+            dataGridView_TaskInfo.Rows.Clear();
+            dataGridView_TaskInfo.Columns.Clear();
+            dataGridView_TaskInfo.RowCount = 1;
+            dataGridView_TaskInfo.ColumnCount = 8;
+            dataGridView_TaskInfo.Columns[0].HeaderText = "#";
+            dataGridView_TaskInfo.Columns[1].HeaderText = "alfa";
+            dataGridView_TaskInfo.Columns[2].HeaderText = "sigma";
+            dataGridView_TaskInfo.Columns[3].HeaderText = "x0";
+            dataGridView_TaskInfo.Columns[4].HeaderText = "u0";
+            dataGridView_TaskInfo.Columns[5].HeaderText = "h0";
+            dataGridView_TaskInfo.Columns[6].HeaderText = "e";
+            dataGridView_TaskInfo.Columns[7].HeaderText = "Максимум итераций";
+            dataGridView_TaskInfo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView_TaskInfo.AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
         }
 
         private void button_start_Click(object sender, EventArgs e)
         {
             CounterOfTests++;
             dataGridView_MetodInfo.Rows.Clear();
+            dataGridView_TaskInfo.Rows.Clear();
             Function Func = new Function();
             Func.SetFunction(Convert.ToDouble(textBox_alfa.Text), Convert.ToDouble(textBox_sigma.Text));
             FunkDelegate function = Func.FunctionValue;
@@ -81,7 +98,7 @@ namespace Numerical_Methods_Task_9
                 Title = "Численное решение #"+Convert.ToString(CounterOfTests), 
                 Values = new ChartValues<ObservablePoint>(RK_2
                     .GetPoints()
-                    .Select(_ => new ObservablePoint(_.X, _.U))),
+                    .Select(_ => new ObservablePoint(_.X, _.V))),
                 //Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 200)),
                 //PointForeground = 
                 //    new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 200)),
@@ -92,8 +109,18 @@ namespace Numerical_Methods_Task_9
             
             metodInfos.ForEach(_ => 
                 dataGridView_MetodInfo.Rows.Add
-                (_.Iteration, _.H, _.X, _.U, _.UHalf, _.U - _.UHalf,
-                _.S, _.e, _.UCorr, _.U, trueSolution.FunctionValue(_.X), Math.Abs(trueSolution.FunctionValue(_.X) - _.U).ToString("F8"), _.CountMinusH, _.CountPlusH));
+                (_.Iteration, _.H, _.X, _.V, _.UHalf, _.V - _.UHalf,
+                _.S, _.e, _.UCorr, _.V, trueSolution.FunctionValue(_.X), Math.Abs(trueSolution.FunctionValue(_.X) - _.V).ToString("F8"), _.CountMinusH, _.CountPlusH));
+
+            TaskInfo taskInfo = new TaskInfo(CounterOfTests, 
+                                             Convert.ToDouble(textBox_alfa.Text), Convert.ToDouble(textBox_sigma.Text), 
+                                             Convert.ToDouble(textBox_x_0.Text), Convert.ToDouble(textBox_u_0.Text),
+                                             Convert.ToDouble(textBox_h.Text), Convert.ToDouble(textBox_eps.Text),
+                                             Convert.ToInt32(textBox_max_iter.Text));
+            dataGridView_TaskInfo.Rows.Add(taskInfo.Number, taskInfo.Alfa, taskInfo.Sigma, taskInfo.X0, taskInfo.U0,
+                                           taskInfo.h0, taskInfo.e, taskInfo.Max_iteration);
+
+            //listExperimentInfos.Add(new ExperimentInfo(taskInfo, metodInfos));
 
             richTextBox_log.AppendText("    Время вытекания жидкости в Тесте №"+Convert.ToString(CounterOfTests)+
                 " составило "+RK_2.GetResultTime()+" секунд.\n");
@@ -102,7 +129,10 @@ namespace Numerical_Methods_Task_9
         private void button_reset_Click(object sender, EventArgs e)
         {
             dataGridView_MetodInfo.Rows.Clear();
+            dataGridView_TaskInfo.Rows.Clear();
+            richTextBox_log.Clear();
             cartesianChart1.Series.Clear();
+            listExperimentInfos.Clear();
             CounterOfTests = 0;
         }
 
@@ -116,11 +146,16 @@ namespace Numerical_Methods_Task_9
                 Title = "Истинное решение", 
                 Values = new ChartValues<ObservablePoint>(trueSolution
                     .GetPoints()
-                    .Select(_ => new ObservablePoint(_.X, _.U))),
+                    .Select(_ => new ObservablePoint(_.X, _.V))),
                 PointGeometry = DefaultGeometries.Square,
                 Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(107, 185, 69)),
                 PointGeometrySize = 5
              });
+        }
+
+        private void comboBox_TaskSelector_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Numerical_Methods_Task_9
         public int Iteration { get; private set; }
         public double H { get; private set; }
         public double X { get; private set; }
-        public double U { get; private set; }
+        public double V { get; private set; }
         public double UHalf { get; private set; }
         public double DeltaU { get; private set; }
         public double S { get; private set; }
@@ -23,13 +23,13 @@ namespace Numerical_Methods_Task_9
         public int CountPlusH { get; private set; }
         public int CountMinusH { get; private set; }
 
-        public MetodInfo(int _i, double _h, double _x, double _u, double _uHalf, double _deltaU, double _s,
+        public MetodInfo(int _i, double _h, double _x, double _v, double _uHalf, double _deltaU, double _s,
             double _e, double _uCorr, double _uResult, int _countMinusH, int _countPlusH)
         {
             Iteration = _i;
             H = _h;
             X = _x;
-            U = _u;
+            V = _v;
             UHalf = _uHalf;
             DeltaU = _deltaU;
             S = _s;

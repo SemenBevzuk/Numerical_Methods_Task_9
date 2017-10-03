@@ -46,7 +46,7 @@ namespace Numerical_Methods_Task_9
 
                 var e = Math.Abs(Math.Pow(2.0,2.0)*s);
 
-                var uCorr = GetUCorr(newPoint, s);
+                var uCorr = GetVCorr(newPoint, s);
 
                 if (flagStepControl == true)
                 {
@@ -77,19 +77,19 @@ namespace Numerical_Methods_Task_9
                     listOfPoints.Add(newPoint);
                 }
                 listIfMetodInfo.Add(
-                    new MetodInfo(steps, oldH, currentPoint.X, currentPoint.U, halfPoint.U, 
-                        currentPoint.U - halfPoint.U, s, e, uCorr, currentPoint.U, countMinusH, countPlusH));
+                    new MetodInfo(steps, oldH, currentPoint.X, currentPoint.V, halfPoint.V, 
+                        currentPoint.V - halfPoint.V, s, e, uCorr, currentPoint.V, countMinusH, countPlusH));
                 steps++;
             }
         }
 
-        private double GetUCorr(Point nextPoint, double s)
+        private double GetVCorr(Point nextPoint, double s)
         {
-            return nextPoint.U + Math.Pow(2.0, 2.0)*s;
+            return nextPoint.V + Math.Pow(2.0, 2.0)*s;
         }
         private double GetS(Point next_1, Point next_2)
         {
-            return (next_2.U - next_1.U)/(2.0*2.0 - 1.0);
+            return (next_2.V - next_1.V)/(2.0*2.0 - 1.0);
         }
         private Point GetHalfPoint(Point currentPoint, double h)
         {
@@ -100,7 +100,7 @@ namespace Numerical_Methods_Task_9
         private Point MakeStep(Point curPoint, double h)
         {
             var x1 = GetNextX(curPoint.X, h);
-            var u1 = GetNextU(curPoint.X, curPoint.U, h);
+            var u1 = GetNextV(curPoint.X, curPoint.V, h);
             return new Point(x1, u1);
         }
         private double GetNextX(double x, double h)
@@ -108,7 +108,7 @@ namespace Numerical_Methods_Task_9
             return x + h;
         }
 
-        private double GetNextU(double x, double u, double h)
+        private double GetNextV(double x, double u, double h)
         {
             if (u < 0)
             {
@@ -123,7 +123,7 @@ namespace Numerical_Methods_Task_9
             {
                 return true;
             }
-            if (currentPoint.U < 0.01 || currentPoint.U + (h/2.0)*f(currentPoint.X, currentPoint.U) < 0.01) // контроль границы по v
+            if (currentPoint.V < 0.01 || currentPoint.V + (h/2.0)*f(currentPoint.X, currentPoint.V) < 0.01) // контроль границы по v
             {
                 return true;
             }

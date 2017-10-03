@@ -18,15 +18,15 @@ namespace Numerical_Methods_Task_9
             alfa = (_alfa * Math.PI) / 180.0;
         }
 
-        public double FunctionValue(double x, double u)
+        public double FunctionValue(double x, double v)
         {
-            if (u < 0)
+            if (v < 0)
             {
                 return 0;
             }
             double c1 = -0.6 * Math.Sqrt(2 * g) * (1.0 / Math.PI);
             double c2 = sigma / Math.Pow(Math.Tan(0.5 * alfa), 2);
-            double c3 = 1.0 / Math.Sqrt(Math.Pow(u, 3));
+            double c3 = 1.0 / Math.Sqrt(Math.Pow(v, 3));
             //double res = -0.6*sigma*(Math.Sqrt(2*g))*
             //    (1.0/Math.Pow(Math.Tan(0.5*alfa), 2))*(1.0/Math.PI)*(1.0/Math.Sqrt(Math.Pow(u,3)));
             return c1 * c2 * c3;
