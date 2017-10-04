@@ -19,11 +19,11 @@ namespace Numerical_Methods_Task_9
     public partial class Form1 : Form
     {
         private int CounterOfTests = 0;
-        private List<ExperimentInfo> listExperimentInfos = new List<ExperimentInfo>(); 
+        private List<ExperimentInfo> listExperimentInfos = new List<ExperimentInfo>();
         public Form1()
         {
             InitializeComponent();
- 
+
             cartesianChart1.AxisY.Add(new Axis
             {
                 Title = "Высота жидксоти",
@@ -82,8 +82,8 @@ namespace Numerical_Methods_Task_9
             Func.SetFunction(Convert.ToDouble(textBox_alfa.Text), Convert.ToDouble(textBox_sigma.Text));
             FunkDelegate function = Func.FunctionValue;
 
-            TrueSolution trueSolution = new TrueSolution(Convert.ToDouble(textBox_alfa.Text), 
-                                                         Convert.ToDouble(textBox_sigma.Text), 
+            TrueSolution trueSolution = new TrueSolution(Convert.ToDouble(textBox_alfa.Text),
+                                                         Convert.ToDouble(textBox_sigma.Text),
                                                          Convert.ToDouble(textBox_u_0.Text));
 
             Runge_Kutta_2 RK_2 = new Runge_Kutta_2();
@@ -94,8 +94,9 @@ namespace Numerical_Methods_Task_9
 
             RK_2.Run();
 
-            cartesianChart1.Series.Add(new LineSeries{
-                Title = "Численное решение #"+Convert.ToString(CounterOfTests), 
+            cartesianChart1.Series.Add(new LineSeries
+            {
+                Title = "Численное решение #" + Convert.ToString(CounterOfTests),
                 Values = new ChartValues<ObservablePoint>(RK_2
                     .GetPoints()
                     .Select(_ => new ObservablePoint(_.X, _.V))),
@@ -106,24 +107,25 @@ namespace Numerical_Methods_Task_9
             });
 
             List<MetodInfo> metodInfos = RK_2.GetMetodInfos();
-            
-            metodInfos.ForEach(_ => 
+
+            metodInfos.ForEach(_ =>
                 dataGridView_MetodInfo.Rows.Add
                 (_.Iteration, _.H, _.X, _.V, _.UHalf, _.V - _.UHalf,
                 _.S, _.e, _.UCorr, _.V, trueSolution.FunctionValue(_.X), Math.Abs(trueSolution.FunctionValue(_.X) - _.V).ToString("F8"), _.CountMinusH, _.CountPlusH));
 
-            TaskInfo taskInfo = new TaskInfo(CounterOfTests, 
-                                             Convert.ToDouble(textBox_alfa.Text), Convert.ToDouble(textBox_sigma.Text), 
+            TaskInfo taskInfo = new TaskInfo(CounterOfTests,
+                                             Convert.ToDouble(textBox_alfa.Text), Convert.ToDouble(textBox_sigma.Text),
                                              Convert.ToDouble(textBox_x_0.Text), Convert.ToDouble(textBox_u_0.Text),
                                              Convert.ToDouble(textBox_h.Text), Convert.ToDouble(textBox_eps.Text),
                                              Convert.ToInt32(textBox_max_iter.Text));
             dataGridView_TaskInfo.Rows.Add(taskInfo.Number, taskInfo.Alfa, taskInfo.Sigma, taskInfo.X0, taskInfo.U0,
                                            taskInfo.h0, taskInfo.e, taskInfo.Max_iteration);
 
-            //listExperimentInfos.Add(new ExperimentInfo(taskInfo, metodInfos));
+            listExperimentInfos.Add(new ExperimentInfo(taskInfo, metodInfos));
+            comboBox_TaskSelector.Items.Add("Тест №" + Convert.ToString(CounterOfTests));
 
-            richTextBox_log.AppendText("    Время вытекания жидкости в Тесте №"+Convert.ToString(CounterOfTests)+
-                " составило "+RK_2.GetResultTime()+" секунд.\n");
+            richTextBox_log.AppendText("    Время вытекания жидкости в Тесте №" + Convert.ToString(CounterOfTests) +
+                ": " + RK_2.GetResultTime() + " секунд.\n");
         }
 
         private void button_reset_Click(object sender, EventArgs e)
@@ -138,24 +140,37 @@ namespace Numerical_Methods_Task_9
 
         private void button_trueSolution_Click(object sender, EventArgs e)
         {
-            TrueSolution trueSolution = new TrueSolution(Convert.ToDouble(textBox_alfa.Text), 
-                                                             Convert.ToDouble(textBox_sigma.Text), 
+            TrueSolution trueSolution = new TrueSolution(Convert.ToDouble(textBox_alfa.Text),
+                                                             Convert.ToDouble(textBox_sigma.Text),
                                                              Convert.ToDouble(textBox_u_0.Text));
-             trueSolution.FindPoints();
-             cartesianChart1.Series.Add(new LineSeries{
-                Title = "Истинное решение", 
+            trueSolution.FindPoints();
+            cartesianChart1.Series.Add(new LineSeries
+            {
+                Title = "Истинное решение",
                 Values = new ChartValues<ObservablePoint>(trueSolution
                     .GetPoints()
                     .Select(_ => new ObservablePoint(_.X, _.V))),
                 PointGeometry = DefaultGeometries.Square,
                 Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(107, 185, 69)),
                 PointGeometrySize = 5
-             });
+            });
         }
 
         private void comboBox_TaskSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
+            dataGridView_MetodInfo.Rows.Clear();
+            dataGridView_TaskInfo.Rows.Clear();
+            int index = comboBox_TaskSelector.SelectedIndex;
+            TrueSolution trueSolution = new TrueSolution(listExperimentInfos[index].TaskInformation.Alfa,
+                                                         listExperimentInfos[index].TaskInformation.Sigma,
+                                                          listExperimentInfos[index].TaskInformation.U0);
 
+            dataGridView_TaskInfo.Rows.Add(listExperimentInfos[index].TaskInformation.Number, listExperimentInfos[index].TaskInformation.Alfa, listExperimentInfos[index].TaskInformation.Sigma, listExperimentInfos[index].TaskInformation.X0, listExperimentInfos[index].TaskInformation.U0,
+                                           listExperimentInfos[index].TaskInformation.h0, listExperimentInfos[index].TaskInformation.e, listExperimentInfos[index].TaskInformation.Max_iteration);
+            listExperimentInfos[index].MetodInformation.ForEach(_ =>
+                dataGridView_MetodInfo.Rows.Add
+                (_.Iteration, _.H, _.X, _.V, _.UHalf, _.V - _.UHalf,
+                _.S, _.e, _.UCorr, _.V, trueSolution.FunctionValue(_.X), Math.Abs(trueSolution.FunctionValue(_.X) - _.V).ToString("F8"), _.CountMinusH, _.CountPlusH));
         }
     }
 }

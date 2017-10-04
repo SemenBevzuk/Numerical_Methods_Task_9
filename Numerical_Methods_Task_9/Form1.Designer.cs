@@ -54,6 +54,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.dataGridView_TaskInfo = new System.Windows.Forms.DataGridView();
             this.comboBox_TaskSelector = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_MetodInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_TaskInfo)).BeginInit();
@@ -137,9 +138,9 @@
             // 
             // richTextBox_log
             // 
-            this.richTextBox_log.Location = new System.Drawing.Point(1107, 505);
+            this.richTextBox_log.Location = new System.Drawing.Point(1089, 505);
             this.richTextBox_log.Name = "richTextBox_log";
-            this.richTextBox_log.Size = new System.Drawing.Size(322, 56);
+            this.richTextBox_log.Size = new System.Drawing.Size(340, 56);
             this.richTextBox_log.TabIndex = 9;
             this.richTextBox_log.Text = "";
             // 
@@ -216,7 +217,7 @@
             // 
             // button_reset
             // 
-            this.button_reset.Location = new System.Drawing.Point(882, 506);
+            this.button_reset.Location = new System.Drawing.Point(864, 506);
             this.button_reset.Name = "button_reset";
             this.button_reset.Size = new System.Drawing.Size(219, 55);
             this.button_reset.TabIndex = 20;
@@ -276,17 +277,27 @@
             // comboBox_TaskSelector
             // 
             this.comboBox_TaskSelector.FormattingEnabled = true;
-            this.comboBox_TaskSelector.Location = new System.Drawing.Point(695, 520);
+            this.comboBox_TaskSelector.Location = new System.Drawing.Point(694, 529);
             this.comboBox_TaskSelector.Name = "comboBox_TaskSelector";
             this.comboBox_TaskSelector.Size = new System.Drawing.Size(147, 28);
             this.comboBox_TaskSelector.TabIndex = 26;
             this.comboBox_TaskSelector.SelectedIndexChanged += new System.EventHandler(this.comboBox_TaskSelector_SelectedIndexChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(688, 506);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(159, 20);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "История испытаний";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1464, 1090);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.comboBox_TaskSelector);
             this.Controls.Add(this.dataGridView_TaskInfo);
             this.Controls.Add(this.label8);
@@ -349,6 +360,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView dataGridView_TaskInfo;
         private System.Windows.Forms.ComboBox comboBox_TaskSelector;
+        private System.Windows.Forms.Label label9;
     }
 }
 
