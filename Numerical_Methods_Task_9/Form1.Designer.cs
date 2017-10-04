@@ -49,12 +49,12 @@
             this.dataGridView_MetodInfo = new System.Windows.Forms.DataGridView();
             this.button_reset = new System.Windows.Forms.Button();
             this.button_trueSolution = new System.Windows.Forms.Button();
-            this.radioButton_StepControl = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
             this.dataGridView_TaskInfo = new System.Windows.Forms.DataGridView();
             this.comboBox_TaskSelector = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.checkBox_StepControl = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_MetodInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_TaskInfo)).BeginInit();
@@ -235,18 +235,6 @@
             this.button_trueSolution.UseVisualStyleBackColor = true;
             this.button_trueSolution.Click += new System.EventHandler(this.button_trueSolution_Click);
             // 
-            // radioButton_StepControl
-            // 
-            this.radioButton_StepControl.AutoSize = true;
-            this.radioButton_StepControl.Checked = true;
-            this.radioButton_StepControl.Location = new System.Drawing.Point(149, 475);
-            this.radioButton_StepControl.Name = "radioButton_StepControl";
-            this.radioButton_StepControl.Size = new System.Drawing.Size(157, 24);
-            this.radioButton_StepControl.TabIndex = 22;
-            this.radioButton_StepControl.TabStop = true;
-            this.radioButton_StepControl.Text = "Коррекция шага";
-            this.radioButton_StepControl.UseVisualStyleBackColor = true;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
@@ -292,17 +280,29 @@
             this.label9.TabIndex = 27;
             this.label9.Text = "История испытаний";
             // 
+            // checkBox_StepControl
+            // 
+            this.checkBox_StepControl.AutoSize = true;
+            this.checkBox_StepControl.Checked = true;
+            this.checkBox_StepControl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_StepControl.Location = new System.Drawing.Point(143, 475);
+            this.checkBox_StepControl.Name = "checkBox_StepControl";
+            this.checkBox_StepControl.Size = new System.Drawing.Size(158, 24);
+            this.checkBox_StepControl.TabIndex = 28;
+            this.checkBox_StepControl.Text = "Коррекция шага";
+            this.checkBox_StepControl.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1464, 1090);
+            this.Controls.Add(this.checkBox_StepControl);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.comboBox_TaskSelector);
             this.Controls.Add(this.dataGridView_TaskInfo);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.radioButton_StepControl);
             this.Controls.Add(this.button_trueSolution);
             this.Controls.Add(this.button_reset);
             this.Controls.Add(this.dataGridView_MetodInfo);
@@ -355,12 +355,12 @@
         private System.Windows.Forms.DataGridView dataGridView_MetodInfo;
         private System.Windows.Forms.Button button_reset;
         private System.Windows.Forms.Button button_trueSolution;
-        private System.Windows.Forms.RadioButton radioButton_StepControl;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView dataGridView_TaskInfo;
         private System.Windows.Forms.ComboBox comboBox_TaskSelector;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox checkBox_StepControl;
     }
 }
 
