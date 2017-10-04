@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using LiveCharts;
@@ -34,6 +35,8 @@ namespace Numerical_Methods_Task_9
             });
 
             cartesianChart1.Zoom = ZoomingOptions.Xy;
+            cartesianChart1.DefaultLegend = new DefaultLegend { Visibility = Visibility.Visible };
+            cartesianChart1.LegendLocation = LegendLocation.Bottom;
             //cartesianChart1.Zoom = ZoomingOptions.Y;
 
             dataGridView_MetodInfo.Rows.Clear();
@@ -100,18 +103,18 @@ namespace Numerical_Methods_Task_9
                 Values = new ChartValues<ObservablePoint>(RK_2
                     .GetPoints()
                     .Select(_ => new ObservablePoint(_.X, _.V))),
-                Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 200)),
-                PointForeground = 
-                    new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 200)),
+                //Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 200)),
+                //PointForeground = 
+                //    new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 200)),
                 PointGeometrySize = 5
             });
-
             List<MetodInfo> metodInfos = RK_2.GetMetodInfos();
 
             metodInfos.ForEach(_ =>
                 dataGridView_MetodInfo.Rows.Add
                 (_.Iteration, _.H, _.X, _.V, _.UHalf, _.V - _.UHalf,
                 _.S, _.e, _.UCorr, _.V, trueSolution.FunctionValue(_.X), Math.Abs(trueSolution.FunctionValue(_.X) - _.V).ToString("F8"), _.CountMinusH, _.CountPlusH));
+            dataGridView_MetodInfo.AutoResizeColumns();
 
             TaskInfo taskInfo = new TaskInfo(CounterOfTests,
                                              Convert.ToDouble(textBox_alfa.Text), Convert.ToDouble(textBox_sigma.Text),

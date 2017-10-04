@@ -64,7 +64,7 @@
             // 
             this.cartesianChart1.Location = new System.Drawing.Point(422, 12);
             this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(1007, 487);
+            this.cartesianChart1.Size = new System.Drawing.Size(1457, 487);
             this.cartesianChart1.TabIndex = 0;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
@@ -138,7 +138,7 @@
             // 
             // richTextBox_log
             // 
-            this.richTextBox_log.Location = new System.Drawing.Point(1089, 505);
+            this.richTextBox_log.Location = new System.Drawing.Point(1539, 505);
             this.richTextBox_log.Name = "richTextBox_log";
             this.richTextBox_log.Size = new System.Drawing.Size(340, 56);
             this.richTextBox_log.TabIndex = 9;
@@ -212,12 +212,12 @@
             this.dataGridView_MetodInfo.Location = new System.Drawing.Point(16, 694);
             this.dataGridView_MetodInfo.Name = "dataGridView_MetodInfo";
             this.dataGridView_MetodInfo.RowTemplate.Height = 28;
-            this.dataGridView_MetodInfo.Size = new System.Drawing.Size(1425, 296);
+            this.dataGridView_MetodInfo.Size = new System.Drawing.Size(1863, 296);
             this.dataGridView_MetodInfo.TabIndex = 17;
             // 
             // button_reset
             // 
-            this.button_reset.Location = new System.Drawing.Point(864, 506);
+            this.button_reset.Location = new System.Drawing.Point(1227, 506);
             this.button_reset.Name = "button_reset";
             this.button_reset.Size = new System.Drawing.Size(219, 55);
             this.button_reset.TabIndex = 20;
@@ -227,7 +227,7 @@
             // 
             // button_trueSolution
             // 
-            this.button_trueSolution.Location = new System.Drawing.Point(422, 508);
+            this.button_trueSolution.Location = new System.Drawing.Point(519, 508);
             this.button_trueSolution.Name = "button_trueSolution";
             this.button_trueSolution.Size = new System.Drawing.Size(243, 53);
             this.button_trueSolution.TabIndex = 21;
@@ -259,13 +259,13 @@
             this.dataGridView_TaskInfo.Location = new System.Drawing.Point(16, 593);
             this.dataGridView_TaskInfo.Name = "dataGridView_TaskInfo";
             this.dataGridView_TaskInfo.RowTemplate.Height = 28;
-            this.dataGridView_TaskInfo.Size = new System.Drawing.Size(1425, 83);
+            this.dataGridView_TaskInfo.Size = new System.Drawing.Size(1863, 83);
             this.dataGridView_TaskInfo.TabIndex = 25;
             // 
             // comboBox_TaskSelector
             // 
             this.comboBox_TaskSelector.FormattingEnabled = true;
-            this.comboBox_TaskSelector.Location = new System.Drawing.Point(694, 529);
+            this.comboBox_TaskSelector.Location = new System.Drawing.Point(931, 529);
             this.comboBox_TaskSelector.Name = "comboBox_TaskSelector";
             this.comboBox_TaskSelector.Size = new System.Drawing.Size(147, 28);
             this.comboBox_TaskSelector.TabIndex = 26;
@@ -274,7 +274,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(688, 506);
+            this.label9.Location = new System.Drawing.Point(925, 506);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(159, 20);
             this.label9.TabIndex = 27;
@@ -296,7 +296,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1464, 1090);
+            this.ClientSize = new System.Drawing.Size(1902, 1090);
             this.Controls.Add(this.checkBox_StepControl);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.comboBox_TaskSelector);
