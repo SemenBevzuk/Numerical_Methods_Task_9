@@ -44,8 +44,6 @@
             this.textBox_h = new System.Windows.Forms.TextBox();
             this.textBox_eps = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox_max_iter = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.dataGridView_MetodInfo = new System.Windows.Forms.DataGridView();
             this.button_reset = new System.Windows.Forms.Button();
             this.button_trueSolution = new System.Windows.Forms.Button();
@@ -55,6 +53,10 @@
             this.comboBox_TaskSelector = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.checkBox_StepControl = new System.Windows.Forms.CheckBox();
+            this.textBox_max_iter = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox_borderAccuracy = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_MetodInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_TaskInfo)).BeginInit();
@@ -64,13 +66,13 @@
             // 
             this.cartesianChart1.Location = new System.Drawing.Point(422, 12);
             this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(1457, 487);
+            this.cartesianChart1.Size = new System.Drawing.Size(1457, 520);
             this.cartesianChart1.TabIndex = 0;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
             // textBox_alfa
             // 
-            this.textBox_alfa.Location = new System.Drawing.Point(316, 244);
+            this.textBox_alfa.Location = new System.Drawing.Point(316, 230);
             this.textBox_alfa.Name = "textBox_alfa";
             this.textBox_alfa.Size = new System.Drawing.Size(100, 26);
             this.textBox_alfa.TabIndex = 1;
@@ -78,7 +80,7 @@
             // 
             // textBox_sigma
             // 
-            this.textBox_sigma.Location = new System.Drawing.Point(315, 276);
+            this.textBox_sigma.Location = new System.Drawing.Point(315, 262);
             this.textBox_sigma.Name = "textBox_sigma";
             this.textBox_sigma.Size = new System.Drawing.Size(100, 26);
             this.textBox_sigma.TabIndex = 2;
@@ -86,7 +88,7 @@
             // 
             // textBox_x_0
             // 
-            this.textBox_x_0.Location = new System.Drawing.Point(315, 311);
+            this.textBox_x_0.Location = new System.Drawing.Point(315, 297);
             this.textBox_x_0.Name = "textBox_x_0";
             this.textBox_x_0.Size = new System.Drawing.Size(100, 26);
             this.textBox_x_0.TabIndex = 3;
@@ -94,7 +96,7 @@
             // 
             // textBox_u_0
             // 
-            this.textBox_u_0.Location = new System.Drawing.Point(315, 344);
+            this.textBox_u_0.Location = new System.Drawing.Point(315, 330);
             this.textBox_u_0.Name = "textBox_u_0";
             this.textBox_u_0.Size = new System.Drawing.Size(100, 26);
             this.textBox_u_0.TabIndex = 4;
@@ -103,7 +105,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(89, 312);
+            this.label1.Location = new System.Drawing.Point(89, 298);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 20);
             this.label1.TabIndex = 5;
@@ -112,7 +114,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(89, 344);
+            this.label2.Location = new System.Drawing.Point(89, 330);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 20);
             this.label2.TabIndex = 6;
@@ -121,7 +123,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 244);
+            this.label3.Location = new System.Drawing.Point(29, 230);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(227, 20);
             this.label3.TabIndex = 7;
@@ -130,7 +132,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(29, 276);
+            this.label4.Location = new System.Drawing.Point(29, 262);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(226, 20);
             this.label4.TabIndex = 8;
@@ -138,7 +140,7 @@
             // 
             // richTextBox_log
             // 
-            this.richTextBox_log.Location = new System.Drawing.Point(1539, 505);
+            this.richTextBox_log.Location = new System.Drawing.Point(1539, 543);
             this.richTextBox_log.Name = "richTextBox_log";
             this.richTextBox_log.Size = new System.Drawing.Size(340, 56);
             this.richTextBox_log.TabIndex = 9;
@@ -146,7 +148,7 @@
             // 
             // button_start
             // 
-            this.button_start.Location = new System.Drawing.Point(33, 508);
+            this.button_start.Location = new System.Drawing.Point(32, 543);
             this.button_start.Name = "button_start";
             this.button_start.Size = new System.Drawing.Size(383, 53);
             this.button_start.TabIndex = 10;
@@ -157,7 +159,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(29, 379);
+            this.label5.Location = new System.Drawing.Point(29, 365);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(193, 20);
             this.label5.TabIndex = 11;
@@ -166,7 +168,7 @@
             // textBox_h
             // 
             this.textBox_h.ImeMode = System.Windows.Forms.ImeMode.KatakanaHalf;
-            this.textBox_h.Location = new System.Drawing.Point(315, 376);
+            this.textBox_h.Location = new System.Drawing.Point(315, 362);
             this.textBox_h.Name = "textBox_h";
             this.textBox_h.Size = new System.Drawing.Size(100, 26);
             this.textBox_h.TabIndex = 12;
@@ -174,7 +176,7 @@
             // 
             // textBox_eps
             // 
-            this.textBox_eps.Location = new System.Drawing.Point(315, 408);
+            this.textBox_eps.Location = new System.Drawing.Point(315, 394);
             this.textBox_eps.Name = "textBox_eps";
             this.textBox_eps.Size = new System.Drawing.Size(100, 26);
             this.textBox_eps.TabIndex = 14;
@@ -183,28 +185,11 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(29, 408);
+            this.label6.Location = new System.Drawing.Point(29, 394);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(115, 20);
             this.label6.TabIndex = 13;
             this.label6.Text = "Контроль ЛП:";
-            // 
-            // textBox_max_iter
-            // 
-            this.textBox_max_iter.Location = new System.Drawing.Point(315, 440);
-            this.textBox_max_iter.Name = "textBox_max_iter";
-            this.textBox_max_iter.Size = new System.Drawing.Size(100, 26);
-            this.textBox_max_iter.TabIndex = 16;
-            this.textBox_max_iter.Text = "5000";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(29, 440);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(165, 20);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Максимум итераций:";
             // 
             // dataGridView_MetodInfo
             // 
@@ -217,7 +202,7 @@
             // 
             // button_reset
             // 
-            this.button_reset.Location = new System.Drawing.Point(1227, 506);
+            this.button_reset.Location = new System.Drawing.Point(1225, 544);
             this.button_reset.Name = "button_reset";
             this.button_reset.Size = new System.Drawing.Size(219, 55);
             this.button_reset.TabIndex = 20;
@@ -227,7 +212,7 @@
             // 
             // button_trueSolution
             // 
-            this.button_trueSolution.Location = new System.Drawing.Point(519, 508);
+            this.button_trueSolution.Location = new System.Drawing.Point(519, 546);
             this.button_trueSolution.Name = "button_trueSolution";
             this.button_trueSolution.Size = new System.Drawing.Size(243, 53);
             this.button_trueSolution.TabIndex = 21;
@@ -238,7 +223,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(33, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(32, 7);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(383, 217);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -256,7 +241,7 @@
             // dataGridView_TaskInfo
             // 
             this.dataGridView_TaskInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_TaskInfo.Location = new System.Drawing.Point(16, 593);
+            this.dataGridView_TaskInfo.Location = new System.Drawing.Point(16, 605);
             this.dataGridView_TaskInfo.Name = "dataGridView_TaskInfo";
             this.dataGridView_TaskInfo.RowTemplate.Height = 28;
             this.dataGridView_TaskInfo.Size = new System.Drawing.Size(1863, 83);
@@ -265,7 +250,7 @@
             // comboBox_TaskSelector
             // 
             this.comboBox_TaskSelector.FormattingEnabled = true;
-            this.comboBox_TaskSelector.Location = new System.Drawing.Point(931, 529);
+            this.comboBox_TaskSelector.Location = new System.Drawing.Point(931, 559);
             this.comboBox_TaskSelector.Name = "comboBox_TaskSelector";
             this.comboBox_TaskSelector.Size = new System.Drawing.Size(147, 28);
             this.comboBox_TaskSelector.TabIndex = 26;
@@ -274,7 +259,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(925, 506);
+            this.label9.Location = new System.Drawing.Point(925, 536);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(159, 20);
             this.label9.TabIndex = 27;
@@ -285,18 +270,56 @@
             this.checkBox_StepControl.AutoSize = true;
             this.checkBox_StepControl.Checked = true;
             this.checkBox_StepControl.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_StepControl.Location = new System.Drawing.Point(143, 475);
+            this.checkBox_StepControl.Location = new System.Drawing.Point(144, 496);
             this.checkBox_StepControl.Name = "checkBox_StepControl";
             this.checkBox_StepControl.Size = new System.Drawing.Size(158, 24);
             this.checkBox_StepControl.TabIndex = 28;
             this.checkBox_StepControl.Text = "Коррекция шага";
             this.checkBox_StepControl.UseVisualStyleBackColor = true;
             // 
+            // textBox_max_iter
+            // 
+            this.textBox_max_iter.Location = new System.Drawing.Point(315, 458);
+            this.textBox_max_iter.Name = "textBox_max_iter";
+            this.textBox_max_iter.Size = new System.Drawing.Size(100, 26);
+            this.textBox_max_iter.TabIndex = 30;
+            this.textBox_max_iter.Text = "5000";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(29, 458);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(140, 20);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "Максимум шагов:";
+            // 
+            // textBox_borderAccuracy
+            // 
+            this.textBox_borderAccuracy.Location = new System.Drawing.Point(315, 426);
+            this.textBox_borderAccuracy.Name = "textBox_borderAccuracy";
+            this.textBox_borderAccuracy.Size = new System.Drawing.Size(100, 26);
+            this.textBox_borderAccuracy.TabIndex = 32;
+            this.textBox_borderAccuracy.Text = "0,01";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(29, 426);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(229, 20);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Точность выхода на границу:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1090);
+            this.Controls.Add(this.textBox_borderAccuracy);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.textBox_max_iter);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.checkBox_StepControl);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.comboBox_TaskSelector);
@@ -306,8 +329,6 @@
             this.Controls.Add(this.button_trueSolution);
             this.Controls.Add(this.button_reset);
             this.Controls.Add(this.dataGridView_MetodInfo);
-            this.Controls.Add(this.textBox_max_iter);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox_eps);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox_h);
@@ -350,8 +371,6 @@
         private System.Windows.Forms.TextBox textBox_h;
         private System.Windows.Forms.TextBox textBox_eps;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox_max_iter;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView dataGridView_MetodInfo;
         private System.Windows.Forms.Button button_reset;
         private System.Windows.Forms.Button button_trueSolution;
@@ -361,6 +380,10 @@
         private System.Windows.Forms.ComboBox comboBox_TaskSelector;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBox_StepControl;
+        private System.Windows.Forms.TextBox textBox_max_iter;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox_borderAccuracy;
+        private System.Windows.Forms.Label label11;
     }
 }
 

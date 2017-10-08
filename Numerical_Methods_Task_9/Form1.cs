@@ -78,6 +78,11 @@ namespace Numerical_Methods_Task_9
 
         private void button_start_Click(object sender, EventArgs e)
         {
+            if (Convert.ToDouble(textBox_borderAccuracy.Text) < Convert.ToDouble(textBox_eps.Text))
+            {
+                System.Windows.MessageBox.Show("Лучше так не делать, точность выхода на границу меньше, чем контроль локальной погрешности!");
+                return;
+            }
             CounterOfTests++;
             dataGridView_MetodInfo.Rows.Clear();
             dataGridView_TaskInfo.Rows.Clear();
@@ -92,8 +97,8 @@ namespace Numerical_Methods_Task_9
             Runge_Kutta_2 RK_2 = new Runge_Kutta_2();
 
             RK_2.Init(Convert.ToDouble(textBox_x_0.Text), Convert.ToDouble(textBox_u_0.Text),
-                Convert.ToDouble(textBox_h.Text), Convert.ToDouble(textBox_eps.Text),
-                Convert.ToInt32(textBox_max_iter.Text), function, checkBox_StepControl.Checked);
+                Convert.ToDouble(textBox_h.Text), Convert.ToDouble(textBox_eps.Text), 
+                Convert.ToDouble(textBox_borderAccuracy.Text), Convert.ToInt32(textBox_max_iter.Text), function, checkBox_StepControl.Checked);
 
             RK_2.Run();
 
@@ -103,9 +108,6 @@ namespace Numerical_Methods_Task_9
                 Values = new ChartValues<ObservablePoint>(RK_2
                     .GetPoints()
                     .Select(_ => new ObservablePoint(_.X, _.V))),
-                //Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 200)),
-                //PointForeground = 
-                //    new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 200)),
                 PointGeometrySize = 5
             });
             List<MetodInfo> metodInfos = RK_2.GetMetodInfos();
@@ -138,6 +140,7 @@ namespace Numerical_Methods_Task_9
             richTextBox_log.Clear();
             cartesianChart1.Series.Clear();
             listExperimentInfos.Clear();
+            comboBox_TaskSelector.Items.Clear();
             CounterOfTests = 0;
         }
 

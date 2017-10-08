@@ -12,6 +12,7 @@ namespace Numerical_Methods_Task_9
         private double h; // шаг
         private double eps; // контроль шага
         private Point currentPoint; // текущая точка 
+        private double borderAccuracy; // точность выхода на границу
 
         private bool flagStepControl; // включить или отключить контроль шага
         private int maxSteps;         // ограничение по числу шагов
@@ -20,54 +21,64 @@ namespace Numerical_Methods_Task_9
         private int countPlusH = 0; // счётчик увеличения шага
         private int countMinusH = 0; // счётчик уменьшения шага
         private int steps = 0; // число шагов в данный момент
-        public void Init(double _x0, double _u0, double _h, double _eps, int _maxSteps, FunkDelegate _f, bool _flagIsHControl)
+        public void Init(double _x0, double _u0, double _h, double _eps, double _borderAccuracy, int _maxSteps, FunkDelegate _f, bool _flagIsHControl)
         {
             currentPoint = new Point(_x0, _u0);
             h = _h;
             eps = _eps;
+            borderAccuracy = _borderAccuracy;
             f = _f;
             maxSteps = _maxSteps;
             flagStepControl = _flagIsHControl;
             listOfPoints.Add(currentPoint);
-            listIfMetodInfo.Add(new MetodInfo(steps,0,_x0,_u0,0,0,0,0,0,0,0,0));
+            listIfMetodInfo.Add(new MetodInfo(steps, 0, _x0, _u0, 0, 0, 0, 0, 0, 0, 0, 0));
             steps++;
-        } 
+        }
 
         public void Run()
         {
             while (!NeedStop())
             {
                 var oldH = h;
+
                 var newPoint = MakeStep(currentPoint, h);
 
                 var halfPoint = GetHalfPoint(currentPoint, h);
 
-                var s = Math.Abs(GetS(newPoint, halfPoint));
+                var s = Math.Abs(GetS(halfPoint, newPoint));
 
-                var e = Math.Abs(Math.Pow(2.0,2.0)*s);
+                var e = Math.Abs(Math.Pow(2.0, 2.0) * s);
 
                 var uCorr = GetVCorr(newPoint, s);
 
+
                 if (flagStepControl == true)
                 {
-                    if (s < eps/(Math.Pow(2.0, 2.0)))
+                    if (s > eps || newPoint.V < 0.0)
                     {
-                        currentPoint = newPoint;
-                        h = h*2;
-                        countPlusH++;
-                        listOfPoints.Add(newPoint);
+                        h = h / 2.0;
+                        countMinusH++;
                     }
+
                     else
                     {
-                        if (s > eps)
+                        if (s < eps / (Math.Pow(2.0, 3.0)))
                         {
-                            h = h/2.0;
-                            countMinusH++;
+                            currentPoint = newPoint;
+                            h = h * 2;
+                            countPlusH++;
+                            listOfPoints.Add(newPoint);
+                            steps++;
+                            listIfMetodInfo.Add(new MetodInfo(steps, oldH, currentPoint.X, currentPoint.V, halfPoint.V,
+                                         currentPoint.V - halfPoint.V, s, e, uCorr, currentPoint.V, countMinusH, countPlusH));
                         }
                         else
                         {
                             currentPoint = newPoint;
                             listOfPoints.Add(newPoint);
+                            steps++;
+                            listIfMetodInfo.Add(new MetodInfo(steps, oldH, currentPoint.X, currentPoint.V, halfPoint.V,
+                                     currentPoint.V - halfPoint.V, s, e, uCorr, currentPoint.V, countMinusH, countPlusH));
                         }
                     }
                 }
@@ -75,26 +86,25 @@ namespace Numerical_Methods_Task_9
                 {
                     currentPoint = newPoint;
                     listOfPoints.Add(newPoint);
+                    steps++;
+                    listIfMetodInfo.Add(new MetodInfo(steps, oldH, currentPoint.X, currentPoint.V, halfPoint.V,
+                                     currentPoint.V - halfPoint.V, s, e, uCorr, currentPoint.V, countMinusH, countPlusH));
                 }
-                listIfMetodInfo.Add(
-                    new MetodInfo(steps, oldH, currentPoint.X, currentPoint.V, halfPoint.V, 
-                        currentPoint.V - halfPoint.V, s, e, uCorr, currentPoint.V, countMinusH, countPlusH));
-                steps++;
             }
         }
 
         private double GetVCorr(Point nextPoint, double s)
         {
-            return nextPoint.V + Math.Pow(2.0, 2.0)*s;
+            return nextPoint.V + Math.Pow(2.0, 2.0) * s;
         }
-        private double GetS(Point next_1, Point next_2)
+        private double GetS(Point _halfPoint, Point _newPoint)
         {
-            return (next_2.V - next_1.V)/(2.0*2.0 - 1.0);
+            return (_halfPoint.V - _newPoint.V) / (2.0 * 2.0 - 1.0);
         }
-        private Point GetHalfPoint(Point currentPoint, double h)
+        private Point GetHalfPoint(Point _currentPoint, double h)
         {
-            var p1 = MakeStep(currentPoint, h/2.0);
-            return MakeStep(p1, h/2.0);
+            var p1 = MakeStep(_currentPoint, h / 2.0);
+            return MakeStep(p1, h / 2.0);
         }
 
         private Point MakeStep(Point curPoint, double h)
@@ -108,14 +118,10 @@ namespace Numerical_Methods_Task_9
             return x + h;
         }
 
-        private double GetNextV(double x, double u, double h)
+        private double GetNextV(double x, double v, double h)
         {
-            if (u < 0)
-            {
-                return 0;
-            }
-            double a = f(x + h/2.0, u + (h/2.0)*f(x,u));
-            return u + h*a;
+            double a = f(x + h / 2.0, v + (h / 2.0) * f(x, v));
+            return v + h * a;
         }
         private bool NeedStop()
         {
@@ -123,7 +129,7 @@ namespace Numerical_Methods_Task_9
             {
                 return true;
             }
-            if (currentPoint.V < 0.01 || currentPoint.V + (h/2.0)*f(currentPoint.X, currentPoint.V) < 0.01) // контроль границы по v
+            if (currentPoint.V <= borderAccuracy)// || currentPoint.V + (h/2.0)*f(currentPoint.X, currentPoint.V) < borderAccuracy) // контроль границы по v
             {
                 return true;
             }
@@ -133,7 +139,7 @@ namespace Numerical_Methods_Task_9
         public List<MetodInfo> GetMetodInfos()
         {
             return listIfMetodInfo;
-        } 
+        }
         public List<Point> GetPoints()
         {
             return listOfPoints;
